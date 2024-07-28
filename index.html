@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        .loading-message, .fetching-password-message {
+            margin-top: 10px;
+            display: none;
+        }
+        .countdown-message {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        .floating-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffdddd;
+            padding: 10px;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            display: none;
+        }
+        #checkButton, #fetchPasswordButton {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        #checkButton:hover, #fetchPasswordButton:hover {
+            background: #0056b3;
+            color: white;
+            transform: scale(1.1);
+        }
+        #checkButton {
+            background: #007bff;
+            color: white;
+        }
+        #fetchPasswordButton {
+            background: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="password" id="passwordInput" placeholder="Enter password" />
+        <button id="checkButton">DOWNLOAD</button>
+        <button id="fetchPasswordButton">DAPATKAN PASSWORD</button>
+        <div class="loading-message" id="loadingMessage"></div>
+        <div class="fetching-password-message" id="fetchingPasswordMessage"></div>
+        <div class="countdown-message" id="countdownMessage"></div>
+    </div>
+    <div class="floating-message" id="floatingMessage"></div>
+
+    <script>
+        document.getElementById('checkButton').addEventListener('click', function() {
+            var password = document.getElementById('passwordInput').value;
+            var loadingMessage = document.getElementById('loadingMessage');
+            var countdownMessage = document.getElementById('countdownMessage');
+            var floatingMessage = document.getElementById('floatingMessage');
+            var countdown = 7;
+
+            loadingMessage.style.display = 'block';
+            loadingMessage.innerText = 'Sedang Check Password';
+            countdownMessage.innerText = 'Countdown: ' + countdown;
+            floatingMessage.style.display = 'none';
+
+            var interval = setInterval(function() {
+                countdown--;
+
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    countdownMessage.innerText = '';
+
+                    if (password === 'sf2modmenu') {
+                        floatingMessage.innerText = 'Password Benar';
+                        floatingMessage.style.background = '#ddffdd';
+                        floatingMessage.style.borderColor = '#00ff00';
+                        location.href = 'https://sfl.gl/UtqRz'; // Ganti dengan URL yang diinginkan
+                    } else {
+                        floatingMessage.innerText = 'Password Salah';
+                        floatingMessage.style.background = '#ffdddd';
+                        floatingMessage.style.borderColor = '#ff0000';
+                    }
+
+                    floatingMessage.style.display = 'block';
+                    setTimeout(function() {
+                        floatingMessage.style.display = 'none';
+                    }, 3000);
+
+                    loadingMessage.style.display = 'none';
+                } else {
+                    loadingMessage.innerText = 'Sedang Check Password' + Array(countdown % 4).fill('.').join('');
+                    countdownMessage.innerText = 'Countdown: ' + countdown;
+                }
+            }, 1000);
+        });
+
+        document.getElementById('fetchPasswordButton').addEventListener('click', function() {
+            var fetchingPasswordMessage = document.getElementById('fetchingPasswordMessage');
+            var floatingMessage = document.getElementById('floatingMessage');
+            var countdown = 5;
+
+            fetchingPasswordMessage.style.display = 'block';
+            fetchingPasswordMessage.innerText = 'Sedang Mencari Password...';
+            floatingMessage.style.display = 'none';
+
+            var interval = setInterval(function() {
+                countdown--;
+
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    fetchingPasswordMessage.innerText = 'Password Telah Di Temukan Silahkan Lewati Iklan Terlebih Dahulu';
+                    setTimeout(function() {
+                        location.href = 'https://sub2unlock.io/htC9b'; // Ganti dengan URL yang diinginkan
+                    }, 3000);
+                } else {
+                    fetchingPasswordMessage.innerText = 'Sedang Mencari Password' + Array(countdown % 4).fill('.').join('');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
